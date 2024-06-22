@@ -1,0 +1,29 @@
+def check(cyst, k, L):
+    count=0
+    for len in cyst:
+        count += int(len // L)
+        if count >= k:
+            return True
+    return False
+
+def len_find(n, k, cyst):
+    L, H = 0.1, max(cyst)
+    M = 0.0
+    epsilon = 1e-7
+
+    while (H - L) > epsilon:
+        mid = L + (H - L) / 2
+        if check(cyst, k, mid):
+            M= mid
+            L = mid + epsilon 
+        else:
+            H = mid - epsilon  
+    
+    return M
+
+n, k = map(int, input().split())
+cyst = [int(input()) for _ in range(n)]
+
+max_len = len_find(n, k, cyst)
+
+print(f"{max_len:.6f}")
